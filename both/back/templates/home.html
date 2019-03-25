@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home | All</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+</head>
+<body>
+<nav class="navbar navbar-light bg-light fixed-top">
+  <a class="navbar-brand">Developer Challenge</a>
+  <form class="form-inline" method="POST">
+      {% csrf_token  %}
+    <input class="form-control mr-sm-2" type="search" name="search" id="search" placeholder="Search by Cuisines " aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" name="submit" type="submit">Search</button>
+  </form>
+</nav><br><br>
+<div class="container">
+
+    <div>
+        <br>{% if messages %}
+            <ul>
+                {% for k in messages %}
+                <li style="color: red;">{{k}}</li>
+                {% endfor %}
+            </ul>
+            
+            {% endif %}
+        </div><br>
+ 
+    <table id="dtBasicExample" class="table table-striped table-dark" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th class="th-sm">Restaurant Name
+      </th>
+      <th class="th-sm">Cuisines
+      </th>
+      <th class="th-sm">Average Cost (2 People)
+      </th>
+      <th class="th-sm">Currency
+      </th>
+      <th class="th-sm">Online Delivery
+      </th>
+      <th class="th-sm">Table Booking
+      </th>
+      <th class="th-sm">Rating</th>
+      <th class="th-sm">How is?</th>
+      <th class="th-sm">Votes</th>
+    </tr>
+  </thead>
+  <tbody>
+     {% for val in data %}
+       <tr>
+                <td scope="row">{{ val.restaurant_name }}</td>
+                <td>{{ val.cuisines }}</td>
+                <td>{{val.average_cost_for_two}}</td>
+                <td>{{ val.currency }}</td>
+                
+                <td>{{ val.has_online }}</td>
+                <td>{{ val.has_table }}</td>
+
+<td>{{val.rating}}</td>
+                <td>{{ val.rating_text }}</td>
+                <td>{{ val.votes }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+  
+</table>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#dtBasicExample').DataTable();
+} );
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

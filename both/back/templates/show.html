@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurants</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+	<nav class="navbar navbar-light bg-light fixed-top">
+  <a class="navbar-brand">Developer Challenge</a>
+  <form class="form-inline" method="POST">
+      {% csrf_token  %}
+    <input class="form-control mr-sm-2" type="search" name="search" id="search" placeholder="Search by Cuisines " aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" name="submit" type="submit">Search</button>
+  </form>
+</nav>
+	<div class="container">
+		
+		<div>
+			<br>{% if messages %}
+			<ul>
+				
+				<li style="color: red;">{{messages}}</li>
+							
+
+			</ul>
+			{% endif %}
+		</div><br>
+		<table class=" table-striped table-dark table">
+			<br><p>Number of Restaurant Found : {{count}}</p>
+			<thead>
+        <tr>
+            <th scope="col">Restaurant Name</th>
+            <th scope="col">Cuisines</th>
+            <th scope="col">Average Cost (2 People)</th>
+            <th scope="col">Currency</th>
+            <th scope="col">Online Delivery</th>
+            <th scope="col">Table Booking</th>
+            <th scope="col">Rating</th>
+            <th scope="col">How is?</th>
+            <th scope="col">Votes</th>
+        </tr>
+        </thead>
+
+        <tbody>{% for data in match %}
+        	<p>{{data.count}}</p>
+            <tr>
+                <td scope="row">{{ data.restaurant_name }}</td>
+                <td>{{ data.cuisines }}</td>
+                <td>{{data.average_cost_for_two}}</td>
+                <td>{{ data.currency }}</td>
+                <td>{{ data.has_online }}</td>
+                <td>{{ data.has_table }}</td>
+                <td>{{data.rating}}</td>
+                <td>{{ data.rating_text }}</td>
+                <td>{{ data.votes}}</td>
+            </tr>{% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
